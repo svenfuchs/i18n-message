@@ -1,0 +1,25 @@
+$: << File.expand_path('../lib', __FILE__)
+require 'rake/testtask'
+require 'i18n/message'
+
+task :default => [:test]
+
+Rake::TestTask.new(:test) do |t|
+  t.pattern = "#{File.dirname(__FILE__)}/test/all.rb"
+  t.verbose = true
+end
+Rake::Task['test'].comment = "Run all tests"
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name     = "i18n-message"
+    s.version  = I18n::Message::VERSION
+    s.summary  = "Object-oriented abstraction for looking up translations from I18n.translate"
+    s.homepage = "http://github.com/svenfuchs/i18n_message"
+    s.authors  = ["Sven Fuchs", "Mateo Murphy"]
+    s.files    =  FileList["[A-Z]*", "{lib,test}/**/*"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: gem install jeweler"
+end
