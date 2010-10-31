@@ -19,8 +19,7 @@ class I18n::Message
     end
 
     def scope
-      scopes = self.class.cascade_options[:scopes]
-      scopes = [super] + scopes.map do |scope|
+      scopes = [super] + Array(self.class.cascade_options[:scopes]).map do |scope|
         if options[scope]
           value = options[scope]
           value = value.class.name unless value.is_a?(String) || value.is_a?(Symbol)

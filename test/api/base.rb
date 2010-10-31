@@ -38,12 +38,12 @@ module Api
 
     # INTERPOLATION
     test "subject is a Symbol, translation is a Message, interpolates a variable" do
-      store_translations(:foo => '{{foo}}')
+      store_translations(:foo => '%{foo}')
       assert_equal 'FOO', message(:foo, :foo => 'FOO').to_s
     end
 
     test "subject evaluates to a Symbol, translation is a Message, interpolates a variable" do
-      store_translations(:foo => '{{foo}}')
+      store_translations(:foo => '%{foo}')
       assert_equal 'FOO', message(Proc.new { :foo }, :foo => 'FOO').to_s
     end
 

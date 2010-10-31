@@ -3,18 +3,26 @@ $:.unshift(File.expand_path(File.dirname(__FILE__)))
 
 require 'rubygems'
 require 'test/unit'
-require 'test_case_declarative'
+require 'test_declarative'
 require 'api'
 
 require 'i18n/message'
 
 class Test::Unit::TestCase
   def teardown
-    I18n.backend  = nil
+    I18n.backend = nil
   end
-  
+
+  def message_class
+    self.class.const_get(:Message)
+  end
+
+  def cascade_options(options)
+    message_class.cascade_options = options
+  end
+
   def message(*args)
-    self.class.const_get(:Message).new(*args)
+    message_class.new(*args)
   end
 
   def store_translations(data)

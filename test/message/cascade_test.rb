@@ -1,4 +1,3 @@
-# encoding: utf-8
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class I18nMessageCascadeTest < Test::Unit::TestCase
@@ -8,9 +7,13 @@ class I18nMessageCascadeTest < Test::Unit::TestCase
 
   def setup
     I18n.backend  = CascadingBackend.new
-    Message.cascade_options = { :step => 2, :skip_root => false, :scopes => [:model, :attribute] }
   end
-  
+
+  def teardown
+    cascade_options :step => 2, :skip_root => true
+    super
+  end
+
   include Api::Base
   include Api::Cascade
 end
@@ -22,4 +25,3 @@ class I18nMessageCascadeVariantsTest < I18nMessageCascadeTest
 
   include Api::Variants
 end
-

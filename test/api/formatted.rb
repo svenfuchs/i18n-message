@@ -14,7 +14,7 @@ module Api
     end
 
     test "uses a translated format to wrap a message" do
-      store_translations(:blank => 'blank', :'formats.full' => 'full %{message}')
+      store_translations(:blank => 'blank', :formats => { :full => 'full %{message}' })
       assert_equal "full blank", message(:blank).to_s(:full)
     end
   end
